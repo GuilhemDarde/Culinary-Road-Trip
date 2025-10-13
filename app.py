@@ -3,8 +3,6 @@ import pandas as pd
 import folium
 from streamlit_folium import st_folium
 import plotly.express as px
-import plotly.graph_objects as go
-from datetime import datetime
 import numpy as np
 
 # Page configuration
@@ -24,6 +22,7 @@ def load_data():
 # Main title
 st.title("🍽️ Open Data Culinary Road Trip")
 st.markdown("*Discover trending restaurants, find the best spots nearby, and plan a foodie road trip across Europe!*")
+st.write("Bienvenue dans votre exploration culinaire en Europe à partir de données **Open Data** 🍷🇫🇷🇮🇹🇪🇸")
 
 # Load the data
 df = load_data()
@@ -41,14 +40,12 @@ if page == "Trending Restaurants":
     
     # Filter options
     col1, col2 = st.columns(2)
-    
     with col1:
         country_filter = st.multiselect(
             "Filter by Country",
             options=sorted(df['country'].unique()),
             default=None
         )
-    
     with col2:
         cuisine_filter = st.multiselect(
             "Filter by Cuisine",
@@ -67,12 +64,12 @@ if page == "Trending Restaurants":
     trending_df = filtered_df.sort_values(['rating', 'reviews_count'], ascending=[False, False]).head(20)
     
     # Display metrics
-    col1, col2, col3 = st.columns(3)
-    with col1:
+    c1, c2, c3 = st.columns(3)
+    with c1:
         st.metric("Total Restaurants", len(filtered_df))
-    with col2:
+    with c2:
         st.metric("Average Rating", f"{filtered_df['rating'].mean():.2f}")
-    with col3:
+    with c3:
         st.metric("Countries", filtered_df['country'].nunique())
     
     # Chart: Top countries by restaurant count
@@ -101,20 +98,19 @@ if page == "Trending Restaurants":
     fig2.update_layout(height=400)
     st.plotly_chart(fig2, use_container_width=True)
     
-    # Top trending restaurants table
+    # Top trending restaurants table (cards)
     st.subheader("🌟 Top Trending Restaurants")
-    
-    for idx, row in trending_df.iterrows():
+    for _, row in trending_df.iterrows():
         with st.container():
-            col1, col2, col3 = st.columns([3, 1, 1])
-            with col1:
+            cc1, cc2, cc3 = st.columns([3, 1, 1])
+            with cc1:
                 st.markdown(f"### {row['name']}")
                 st.markdown(f"📍 {row['city']}, {row['country']} | 🍴 {row['cuisine']}")
                 st.markdown(f"📞 {row['phone']} | 📧 {row['address']}")
-            with col2:
+            with cc2:
                 st.metric("Rating", f"⭐ {row['rating']}")
                 st.markdown(f"💰 {row['price_range']}")
-            with col3:
+            with cc3:
                 st.metric("Reviews", f"{row['reviews_count']:,}")
             st.divider()
 
@@ -127,22 +123,16 @@ elif page == "Nearby Restaurants Map":
     
     # Filters in sidebar
     st.sidebar.subheader("Map Filters")
-    
-    # Country filter
     selected_countries = st.sidebar.multiselect(
         "Select Countries",
         options=sorted(df['country'].unique()),
         default=None
     )
-    
-    # Cuisine filter
     selected_cuisines = st.sidebar.multiselect(
         "Select Cuisines",
         options=sorted(df['cuisine'].unique()),
         default=None
     )
-    
-    # Rating filter
     min_rating = st.sidebar.slider(
         "Minimum Rating",
         min_value=float(df['rating'].min()),
@@ -150,8 +140,6 @@ elif page == "Nearby Restaurants Map":
         value=float(df['rating'].min()),
         step=0.1
     )
-    
-    # Price range filter
     price_ranges = st.sidebar.multiselect(
         "Price Range",
         options=sorted(df['price_range'].unique()),
@@ -168,25 +156,15 @@ elif page == "Nearby Restaurants Map":
     if price_ranges:
         map_df = map_df[map_df['price_range'].isin(price_ranges)]
     
-    # Display filter results
     st.info(f"Showing {len(map_df)} restaurants based on your filters")
     
-    # Create map
     if len(map_df) > 0:
-        # Calculate center of map
         center_lat = map_df['latitude'].mean()
         center_lon = map_df['longitude'].mean()
+        m = folium.Map(location=[center_lat, center_lon], zoom_start=5, tiles='OpenStreetMap')
         
-        # Create folium map
-        m = folium.Map(
-            location=[center_lat, center_lon],
-            zoom_start=5,
-            tiles='OpenStreetMap'
-        )
-        
-        # Add markers for each restaurant
-        for idx, row in map_df.iterrows():
-            # Color based on rating
+        # Add markers
+        for _, row in map_df.iterrows():
             if row['rating'] >= 4.7:
                 color = 'red'
             elif row['rating'] >= 4.5:
@@ -195,7 +173,6 @@ elif page == "Nearby Restaurants Map":
                 color = 'green'
             else:
                 color = 'blue'
-            
             popup_html = f"""
             <div style="width: 200px;">
                 <h4>{row['name']}</h4>
@@ -207,7 +184,6 @@ elif page == "Nearby Restaurants Map":
                 <p><b>Phone:</b> {row['phone']}</p>
             </div>
             """
-            
             folium.Marker(
                 location=[row['latitude'], row['longitude']],
                 popup=folium.Popup(popup_html, max_width=250),
@@ -215,10 +191,7 @@ elif page == "Nearby Restaurants Map":
                 icon=folium.Icon(color=color, icon='cutlery', prefix='fa')
             ).add_to(m)
         
-        # Display map
         st_folium(m, width=1400, height=600)
-        
-        # Display restaurant list
         st.subheader("Restaurant Details")
         display_df = map_df[['name', 'country', 'city', 'cuisine', 'rating', 'price_range', 'reviews_count']].copy()
         display_df = display_df.sort_values('rating', ascending=False)
@@ -234,59 +207,27 @@ elif page == "Road Trip Planner":
     st.markdown("Plan your perfect culinary journey across Europe!")
     
     # Trip parameters
-    col1, col2 = st.columns(2)
-    
-    with col1:
+    c1, c2 = st.columns(2)
+    with c1:
         st.subheader("Trip Settings")
-        num_days = st.number_input(
-            "Number of Days",
-            min_value=1,
-            max_value=30,
-            value=5,
-            step=1
-        )
-        
-        meals_per_day = st.number_input(
-            "Meals per Day",
-            min_value=1,
-            max_value=3,
-            value=2,
-            step=1
-        )
-        
-        daily_budget = st.number_input(
-            "Daily Budget (€)",
-            min_value=10,
-            max_value=1000,
-            value=100,
-            step=10
-        )
-    
-    with col2:
+        num_days = st.number_input("Number of Days", min_value=1, max_value=30, value=5, step=1)
+        meals_per_day = st.number_input("Meals per Day", min_value=1, max_value=3, value=2, step=1)
+        daily_budget = st.number_input("Daily Budget (€)", min_value=10, max_value=1000, value=100, step=10)
+    with c2:
         st.subheader("Preferences")
         preferred_countries = st.multiselect(
             "Countries to Visit",
             options=sorted(df['country'].unique()),
             default=['France', 'Italy', 'Spain']
         )
-        
         preferred_cuisines = st.multiselect(
             "Preferred Cuisines",
             options=sorted(df['cuisine'].unique()),
             default=None
         )
-        
-        min_rating_trip = st.slider(
-            "Minimum Restaurant Rating",
-            min_value=3.0,
-            max_value=5.0,
-            value=4.0,
-            step=0.1
-        )
+        min_rating_trip = st.slider("Minimum Restaurant Rating", min_value=3.0, max_value=5.0, value=4.0, step=0.1)
     
-    # Generate trip button
     if st.button("🎯 Generate Road Trip", type="primary"):
-        # Filter restaurants based on preferences
         trip_df = df.copy()
         if preferred_countries:
             trip_df = trip_df[trip_df['country'].isin(preferred_countries)]
@@ -294,100 +235,70 @@ elif page == "Road Trip Planner":
             trip_df = trip_df[trip_df['cuisine'].isin(preferred_cuisines)]
         trip_df = trip_df[trip_df['rating'] >= min_rating_trip]
         
-        # Budget mapping
         price_to_cost = {'$': 20, '$$': 40, '$$$': 80, '$$$$': 150}
         trip_df['estimated_cost'] = trip_df['price_range'].map(price_to_cost)
-        
-        # Filter by budget
         trip_df = trip_df[trip_df['estimated_cost'] <= (daily_budget / meals_per_day)]
         
-        if len(trip_df) < num_days * meals_per_day:
-            st.warning(f"⚠️ Not enough restaurants match your criteria. Found {len(trip_df)} restaurants but need {num_days * meals_per_day}. Try adjusting your filters.")
+        needed = num_days * meals_per_day
+        if len(trip_df) < needed:
+            st.warning(f"⚠️ Not enough restaurants match your criteria. Found {len(trip_df)} restaurants but need {needed}. Try adjusting your filters.")
         else:
-            # Sample restaurants for the trip (prioritize high ratings)
             trip_df = trip_df.sort_values(['rating', 'reviews_count'], ascending=[False, False])
-            
-            # Try to diversify by country and city
             selected_restaurants = []
             cities_visited = set()
-            
-            for _ in range(num_days * meals_per_day):
-                # Prefer new cities
+            for _ in range(needed):
                 available = trip_df[~trip_df['city'].isin(cities_visited)]
                 if len(available) == 0:
                     available = trip_df
-                
-                # Select restaurant
-                restaurant = available.iloc[0]
-                selected_restaurants.append(restaurant)
-                cities_visited.add(restaurant['city'])
-                
-                # Remove from pool
-                trip_df = trip_df[trip_df['name'] != restaurant['name']]
-                
+                r = available.iloc[0]
+                selected_restaurants.append(r)
+                cities_visited.add(r['city'])
+                trip_df = trip_df[trip_df['name'] != r['name']]
                 if len(trip_df) == 0:
                     break
             
-            # Display trip itinerary
             st.success(f"✅ Generated a {num_days}-day road trip with {len(selected_restaurants)} meals!")
-            
-            # Calculate total cost
             total_cost = sum([r['estimated_cost'] for r in selected_restaurants])
-            
-            # Display summary
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
+            cc1, cc2, cc3, cc4 = st.columns(4)
+            with cc1:
                 st.metric("Total Meals", len(selected_restaurants))
-            with col2:
+            with cc2:
                 st.metric("Estimated Cost", f"€{total_cost}")
-            with col3:
+            with cc3:
                 countries_visited = len(set([r['country'] for r in selected_restaurants]))
                 st.metric("Countries", countries_visited)
-            with col4:
+            with cc4:
                 avg_rating = np.mean([r['rating'] for r in selected_restaurants])
                 st.metric("Avg Rating", f"⭐ {avg_rating:.2f}")
             
-            # Display day-by-day itinerary
             st.subheader("📅 Your Itinerary")
-            
             for day in range(num_days):
                 st.markdown(f"### Day {day + 1}")
-                day_start_idx = day * meals_per_day
-                day_end_idx = min((day + 1) * meals_per_day, len(selected_restaurants))
-                
-                for meal_idx in range(day_start_idx, day_end_idx):
-                    if meal_idx < len(selected_restaurants):
-                        r = selected_restaurants[meal_idx]
-                        meal_num = (meal_idx % meals_per_day) + 1
-                        
+                start_i = day * meals_per_day
+                end_i = min((day + 1) * meals_per_day, len(selected_restaurants))
+                for i in range(start_i, end_i):
+                    if i < len(selected_restaurants):
+                        r = selected_restaurants[i]
+                        meal_num = (i % meals_per_day) + 1
                         with st.container():
-                            col1, col2, col3 = st.columns([3, 1, 1])
-                            with col1:
+                            k1, k2, k3 = st.columns([3, 1, 1])
+                            with k1:
                                 st.markdown(f"**Meal {meal_num}: {r['name']}**")
                                 st.markdown(f"📍 {r['city']}, {r['country']} | 🍴 {r['cuisine']}")
                                 st.markdown(f"📧 {r['address']}")
-                            with col2:
+                            with k2:
                                 st.markdown(f"⭐ **{r['rating']}**")
                                 st.markdown(f"💰 {r['price_range']} (~€{r['estimated_cost']})")
-                            with col3:
+                            with k3:
                                 st.markdown(f"📞 {r['phone']}")
                 st.divider()
             
-            # Create trip map
             st.subheader("🗺️ Trip Map")
-            
-            # Create map centered on restaurants
             trip_restaurants_df = pd.DataFrame(selected_restaurants)
             center_lat = trip_restaurants_df['latitude'].mean()
             center_lon = trip_restaurants_df['longitude'].mean()
+            trip_map = folium.Map(location=[center_lat, center_lon], zoom_start=5, tiles='OpenStreetMap')
             
-            trip_map = folium.Map(
-                location=[center_lat, center_lon],
-                zoom_start=5,
-                tiles='OpenStreetMap'
-            )
-            
-            # Add numbered markers
             for idx, r in enumerate(selected_restaurants):
                 folium.Marker(
                     location=[r['latitude'], r['longitude']],
@@ -410,19 +321,11 @@ elif page == "Road Trip Planner":
                     """)
                 ).add_to(trip_map)
             
-            # Add route line
             coordinates = [[r['latitude'], r['longitude']] for r in selected_restaurants]
-            folium.PolyLine(
-                coordinates,
-                color='#FF4B4B',
-                weight=3,
-                opacity=0.7,
-                popup='Trip Route'
-            ).add_to(trip_map)
-            
+            folium.PolyLine(coordinates, color='#FF4B4B', weight=3, opacity=0.7, popup='Trip Route').add_to(trip_map)
             st_folium(trip_map, width=1400, height=500)
 
 # Footer
 st.markdown("---")
+st.caption("Projet Open Data — MIASHS 2025")
 st.markdown("*Data source: Tripadvisor European Restaurants Open Data*")
-st.markdown("Made with ❤️ using Streamlit")
