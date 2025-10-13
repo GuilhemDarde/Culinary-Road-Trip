@@ -1,18 +1,19 @@
-# ==== Interface & App ====
-streamlit>=1.37.0
+# Core app
+streamlit>=1.37
+pandas>=2.2
+numpy>=1.26
+
+# Maps & viz
+folium>=0.16
+streamlit-folium>=0.21
+plotly>=5.22
 pydeck>=0.9.1
 
-# ==== Data & maths ====
-pandas>=2.2.0
-numpy>=1.26.0
-scikit-learn>=1.4.0
-
-# ==== Géocodage (optionnel si tu ajoutes "Autour de moi") ====
-geopy>=2.4.0
-
-# ==== Divers (lecture CSV, utils) ====
-python-dateutil>=2.9.0
-tzdata>=2025.1
-
-# ==== Recommandé pour performances / compat Mac ARM ====
+# Speedy CSV / Mac ARM friendly
 pyarrow>=16.0.0
+
+# --- Optionnels si tu en as besoin plus tard ---
+# scikit-learn>=1.4.0
+# geopy>=2.4.0
+# python-dateutil>=2.9.0
+# tzdata>=2025.1

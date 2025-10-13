@@ -1,0 +1,50 @@
+name,country,city,cuisine,rating,price_range,latitude,longitude,reviews_count,address,phone
+Le Comptoir du Relais,France,Paris,French,4.5,$$,48.8534,2.3383,1234,9 Carrefour de l'Odéon,+33 1 44 27 07 97
+La Pergola,Italy,Rome,Italian,4.8,$$$,41.9179,12.4642,2156,Via Alberto Cadlolo 101,+39 06 3509 2152
+El Celler de Can Roca,Spain,Girona,Spanish,4.9,$$$$,41.9844,2.8254,3421,Carrer de Can Sunyer 48,+34 972 22 21 57
+Osteria Francescana,Italy,Modena,Italian,4.9,$$$$,44.6476,10.9258,2987,Via Stella 22,+39 059 210118
+Chez L'Ami Jean,France,Paris,French,4.6,$$,48.8599,2.3078,987,27 Rue Malar,+33 1 47 05 86 89
+La Riua,Spain,Valencia,Spanish,4.4,$$,39.4735,-0.3763,876,Carrer del Mar 27,+34 963 91 45 71
+Trattoria Sostanza,Italy,Florence,Italian,4.7,$$,43.7736,11.2479,1543,Via del Porcellana 25,+39 055 212691
+Le Jules Verne,France,Paris,French,4.5,$$$,48.8584,2.2945,2345,Avenue Gustave Eiffel,+33 1 45 55 61 44
+Zum Franziskaner,Germany,Munich,German,4.3,$$,48.1371,11.5768,654,Residenzstraße 9,+49 89 231 8120
+Hofbräuhaus München,Germany,Munich,German,4.2,$$,48.1375,11.5799,3456,Platzl 9,+49 89 290 13 60
+Restaurant Tim Raue,Germany,Berlin,Asian Fusion,4.8,$$$,52.5078,13.4119,1234,Rudi-Dutschke-Straße 26,+49 30 25937930
+Café Sacher Wien,Austria,Vienna,Austrian,4.4,$$,48.2041,16.3699,2345,Philharmoniker Str. 4,+43 1 514560
+Steirereck,Austria,Vienna,Austrian,4.8,$$$$,48.2081,16.3738,1876,Am Heumarkt 2A,+43 1 713 3168
+Noma,Denmark,Copenhagen,Nordic,4.9,$$$$,55.6867,12.5989,4321,Refshalevej 96,+45 32 96 32 97
+Restaurant Geranium,Denmark,Copenhagen,Nordic,4.8,$$$$,55.7005,12.5622,2654,Per Henrik Lings Allé 4,+45 69 96 00 20
+The Fat Duck,United Kingdom,Bray,British,4.7,$$$$,51.5089,0.7015,2987,High Street,+44 1628 580333
+Restaurant Gordon Ramsay,United Kingdom,London,British,4.7,$$$$,51.4856,-0.1586,3210,68 Royal Hospital Road,+44 20 7352 4441
+El Club Allard,Spain,Madrid,Spanish,4.6,$$$,40.4191,-3.7065,1456,Calle de Ferraz 2,+34 915 59 09 39
+DiverXO,Spain,Madrid,Asian Fusion,4.8,$$$$,40.4479,-3.6795,1987,Calle de Padre Damián 23,+34 915 70 07 66
+La Chassagnette,France,Arles,French,4.6,$$$,43.6401,4.7147,876,Route du Sambuc,+33 4 90 97 26 96
+Asador Etxebarri,Spain,Axpe,Spanish,4.9,$$$$,43.1063,-2.6198,2543,San Juan Plaza 1,+34 946 58 30 42
+Mirazur,France,Menton,Mediterranean,4.9,$$$$,43.7764,7.5015,3876,30 Avenue Aristide Briand,+33 4 92 41 86 86
+Septime,France,Paris,French,4.7,$$,48.8533,2.3809,1654,80 Rue de Charonne,+33 1 43 67 38 29
+Azurmendi,Spain,Larrabetzu,Basque,4.8,$$$$,43.2458,-2.8754,2123,Barrio Legina s/n,+34 944 55 88 59
+La Tour d'Argent,France,Paris,French,4.5,$$$,48.8512,2.3532,2876,15 Quai de la Tournelle,+33 1 43 54 23 31
+Sketch,United Kingdom,London,British,4.4,$$$$,51.5146,-0.1421,3245,9 Conduit Street,+44 20 7659 4500
+Mugaritz,Spain,Errenteria,Spanish,4.8,$$$$,43.2876,-1.9165,1987,Aldura Gunea Aldea 20,+34 943 52 24 55
+Schwarzwaldstube,Germany,Baiersbronn,German,4.7,$$$$,48.5071,8.3765,1234,Tonbachstraße 237,+49 7442 4920
+Aqua,Germany,Wolfsburg,German,4.6,$$$,52.4227,10.7865,987,Parkstraße 1,+49 5361 607444
+Vendôme,Germany,Bergisch Gladbach,German,4.7,$$$$,50.9914,7.1295,1456,Kadettenstraße,+49 2202 20 40
+L'Enclume,United Kingdom,Cartmel,British,4.8,$$$$,54.2172,-2.9584,2345,Cavendish Street,+44 15395 36362
+Core by Clare Smyth,United Kingdom,London,British,4.8,$$$$,51.4906,-0.1889,1876,92 Kensington Park Road,+44 20 3937 5086
+Alain Ducasse au Plaza Athénée,France,Paris,French,4.7,$$$$,48.8661,2.3044,3456,25 Avenue Montaigne,+33 1 53 67 65 00
+Pavillon Ledoyen,France,Paris,French,4.6,$$$$,48.8659,2.3149,2654,8 Avenue Dutuit,+33 1 53 05 10 01
+Quique Dacosta,Spain,Denia,Spanish,4.8,$$$$,38.8395,0.1056,1987,Calle Rascassa 1,+34 965 78 41 79
+Disfrutar,Spain,Barcelona,Spanish,4.8,$$$,41.3902,2.1687,2876,Carrer de Villarroel 163,+34 933 48 68 96
+Tickets,Spain,Barcelona,Spanish,4.6,$$,41.3764,2.1501,3210,Avinguda del Paral·lel 164,+34 932 92 42 54
+Lasarte,Spain,Barcelona,Spanish,4.7,$$$$,41.3956,2.1584,1654,Carrer de Mallorca 259,+34 934 45 32 42
+ABaC,Spain,Barcelona,Spanish,4.7,$$$$,41.4036,2.1322,1543,Avinguda del Tibidabo 1,+34 933 19 66 00
+Boury,Belgium,Roeselare,Belgian,4.7,$$$,50.9481,3.1239,987,Rijselstraat 158,+32 51 74 41 00
+Hof van Cleve,Belgium,Kruishoutem,Belgian,4.8,$$$$,50.9332,3.5198,1456,Riemegemstraat 1,+32 9 383 58 48
+The Jane,Belgium,Antwerp,Belgian,4.7,$$$,51.2091,4.3984,2345,Paradeplein 1,+32 3 808 44 65
+Alchemist,Denmark,Copenhagen,Nordic,4.9,$$$$,55.6896,12.5953,2123,Refshalevej 173C,+45 31 71 61 61
+Restaurant AOC,Denmark,Copenhagen,Nordic,4.6,$$$,55.6811,12.5764,1876,Dronningens Tværgade 2,+45 33 11 11 45
+Søllerød Kro,Denmark,Holte,Nordic,4.5,$$$,55.8198,12.4876,1234,Søllerødvej 35,+45 45 80 25 05
+Restaurant 108,Denmark,Copenhagen,Nordic,4.5,$$,55.6746,12.5964,987,Strandgade 108,+45 32 96 32 92
+Kadeau,Denmark,Copenhagen,Nordic,4.7,$$$,55.6911,12.5839,1654,Wildersgade 10B,+45 33 25 22 23
+Vila Joya,Portugal,Albufeira,Portuguese,4.8,$$$$,37.0893,-8.2467,1543,Praia de Gale,+351 289 591795
+Belcanto,Portugal,Lisbon,Portuguese,4.7,$$$$,38.7093,-9.1397,2345,Largo de São Carlos 10,+351 21 342 0607
