@@ -16,7 +16,7 @@ from sklearn.preprocessing import MinMaxScaler
 st.set_page_config(page_title="Road Trip Planner — Culinaire", layout="wide")
 
 # >>>> Modifie ici si besoin <<<<
-DATA_CSV = "/Users/a33672/Desktop/Open Data/tripadvisor_european_restaurants.csv"
+DATA_CSV = "/Users/aya31/Desktop/M2 MIASHS/Open data/Culinary-Road-Trip/tripadvisor_european_restaurants.csv"
 
 # =========================================================
 #  STYLE (dark UI proche du mockup fourni)

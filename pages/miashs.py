@@ -17,7 +17,7 @@ def load_data():
         "latitude", "longitude", "avg_rating", "total_reviews_count",
         "price_level", "cuisines"
     ]
-    df = pd.read_csv("tripadvisor_european_restaurants.csv", usecols=usecols)
+    df = pd.read_csv("/Users/aya31/Desktop/M2 MIASHS/Open data/Culinary-Road-Trip/tripadvisor_european_restaurants.csv", usecols=usecols)
 
     # Nettoyage et typage
     df = df.dropna(subset=["latitude", "longitude", "avg_rating"])
