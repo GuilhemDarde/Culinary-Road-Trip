@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+from utils.data_loader import resolve_tripadvisor_csv_path
+
+CSV_PATH = resolve_tripadvisor_csv_path()
+
 # ==============================
 # 🔹 CONFIG
 # ==============================
@@ -17,7 +21,7 @@ def load_data():
         "latitude", "longitude", "avg_rating", "total_reviews_count",
         "price_level", "cuisines"
     ]
-    df = pd.read_csv("/Users/aya31/Desktop/M2 MIASHS/Open data/Culinary-Road-Trip/tripadvisor_european_restaurants.csv", usecols=usecols)
+    df = pd.read_csv(CSV_PATH, usecols=usecols)
 
     # Nettoyage et typage
     df = df.dropna(subset=["latitude", "longitude", "avg_rating"])
