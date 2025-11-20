@@ -37,7 +37,7 @@ st.markdown('<div class="grid">', unsafe_allow_html=True)
 
 # ---------------------- CARD 1 ----------------------
 st.markdown(
-    "<a href='/?page=miashs' target='_self' class='card-link'>"
+    "<a href='/miashs' target='_self' class='card-link'>"
     "<div class='card clickable-card'>"
     + media_div(
         "images/map_preview.png",
@@ -58,7 +58,7 @@ st.markdown(
 
 # ---------------------- CARD 2 ----------------------
 st.markdown(
-    "<a href='/?page=Roadtrip' target='_self' class='card-link'>"
+    "<a href='./app' target='_self' class='card-link'>"
     "<div class='card clickable-card'>"
     + media_div(
         "images/roadtrip.png",
@@ -79,7 +79,7 @@ st.markdown(
 
 # ---------------------- CARD 3 ----------------------
 st.markdown(
-    "<a href='/?page=Profil' target='_self' class='card-link'>"
+    "<a href='/Top5' target='_self' class='card-link'>"
     "<div class='card clickable-card'>"
     + media_div(
         "images/profile.png",
