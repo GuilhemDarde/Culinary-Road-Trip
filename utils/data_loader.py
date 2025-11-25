@@ -31,7 +31,8 @@ def load_data(csv_path: str):
 
     # Convertis types
     for col in ['rating','num_reviews','latitude','longitude']:
-        df[col] = pd.to_numeric(df[col], errors='coerce')
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Price numérique
     def price_to_num(x):
