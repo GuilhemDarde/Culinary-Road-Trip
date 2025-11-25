@@ -64,7 +64,7 @@ if page == "Carte 3D":
     with col2:
         country = st.selectbox(
             "🌍 Pays",
-            ["Tous"] + sorted(df["country"].unique())
+            ["Belgium"] + sorted(df["country"].unique())
         )
 
     with col3:
@@ -89,9 +89,10 @@ if page == "Carte 3D":
     mode = st.selectbox(
         "Afficher la hauteur en fonction de :",
         [
+            "Popularité (note × avis)",
             "Nombre d'avis",
             "Note moyenne",
-            "Popularité (note × avis)",
+            
             "Uniforme"
         ]
     )
@@ -188,30 +189,31 @@ if page == "Carte 3D":
 # PAGE 2 : TRENDING / STAT
 # ===========================
 elif page == "Statistiques":
-    # -------- Filtres --------
-    col1, col2 = st.columns(2)
-    with col1:
-        country_filter = st.multiselect(
-            "Filter by Country",
-            options=sorted(df["country"].unique()),
-            default=None,
-        )
-    with col2:
-        cuisine_filter = st.multiselect(
-            "Filter by Cuisine",
-            options=sorted(df["cuisines_clean"].unique()),
-            default=None,
-        )
+    st.header("📊 Statistiques")
 
-    filtered_df = df.copy()
+    df_cuisine = df.copy()
+    
+    # ==========================
+    # 2️⃣ FILTRE PAR PAYS (APPLIQUÉ APRÈS CUISINE)
+    # ==========================
+    st.subheader("Filtre par pays")
+
+    country_filter = st.multiselect(
+        "Filter by Cuisine",
+        options=sorted(df_cuisine["cuisines_clean"].unique()),  # 👈 dépend déjà du filtre cuisine
+        default=None,
+    )
+
+    # df filtré sur cuisine ⬅️ puis pays ⬅️
+    filtered_df = df_cuisine.copy()
     if country_filter:
-        filtered_df = filtered_df[filtered_df["country"].isin(country_filter)]
-    if cuisine_filter:
-        filtered_df = filtered_df[filtered_df["cuisines_clean"].isin(cuisine_filter)]
+        filtered_df = filtered_df[filtered_df["cuisines_clean"].isin(country_filter)]
 
+    # ==========================
+    # METRICS (sur les deux filtres)
+    # ==========================
+    st.subheader("Résumé global")
 
-
-    # -------- Metrics --------
     c1, c2, c3 = st.columns(3)
     with c1:
         st.metric("Total Restaurants", len(filtered_df))
@@ -223,8 +225,10 @@ elif page == "Statistiques":
     with c3:
         st.metric("Countries", filtered_df["country"].nunique())
 
-    # -------- Top countries by count --------
-    st.subheader("Top Countries by Restaurant Count")
+    # ==========================
+    # 2e GRAPHE : Top pays (cuisine + pays)
+    # ==========================
+    st.subheader("Top Countries by Restaurant Count (with both filters)")
     if not filtered_df.empty:
         country_counts = filtered_df["country"].value_counts().head(10)
         fig = px.bar(
@@ -238,12 +242,32 @@ elif page == "Statistiques":
         fig.update_layout(showlegend=False, height=400)
         st.plotly_chart(fig, use_container_width=True)
     else:
-        st.info("No data to display for country distribution.")
+        st.info("No data to display for country distribution with current filters.")
 
-    # -------- Cuisine distribution --------
-    st.subheader("Cuisine Type Distribution")
-    if not filtered_df.empty:
-        cuisine_counts = filtered_df["cuisines_clean"].value_counts()
+
+# ==========================
+    # 1️⃣ FILTRE PAR CUISINE
+    # ==========================
+    st.subheader("Filtre par type de cuisine")
+
+    cuisine_filter = st.multiselect(
+        "Filter by Pays",
+        options=sorted(df["country"].unique()),
+        default=None,
+    )
+
+    # df filtré UNIQUEMENT par pays
+    
+    if cuisine_filter:
+        df_cuisine = df_cuisine[df_cuisine["country"].isin(cuisine_filter)]
+
+    # ==========================
+    # 1er GRAPHE : dépend SEULEMENT du filtre cuisine
+    # ==========================
+    st.subheader("Cuisine Type Distribution (filtered by cuisine)")
+
+    if not df_cuisine.empty:
+        cuisine_counts = df_cuisine["cuisines_clean"].value_counts()
         fig2 = px.pie(
             values=cuisine_counts.values,
             names=cuisine_counts.index,
@@ -253,4 +277,6 @@ elif page == "Statistiques":
         fig2.update_layout(height=400)
         st.plotly_chart(fig2, use_container_width=True)
     else:
-        st.info("No data to display for cuisine distribution.")
+        st.info("No data to display for cuisine distribution with current cuisine filter.")
+
+    st.markdown("---")

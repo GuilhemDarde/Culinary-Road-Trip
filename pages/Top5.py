@@ -59,7 +59,7 @@ with col1:
 with col2:
     country = st.selectbox(
         "🌍 Pays",
-        ["Tous pays"] + sorted(df["country"].unique().tolist())
+        ["France"] + sorted(df["country"].unique().tolist())
     )
 
 # Liste des villes dépendante du pays

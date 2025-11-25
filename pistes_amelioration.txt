@@ -4,3 +4,12 @@
 4) connectecter API tripodvisor pour photos
 5) ajouter selection par note et nombre avis
 6) ajouter selction vege / vegan
+
+
+
+probleme avec les filtres des pays/villes sur le roadtrip
+amelioration du systeme de recherche sur les filtres
+
+Toutes states 
+
+Cloud community + biblio 
