@@ -8,8 +8,8 @@
 
 /* Cards */
 .card {
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.959);
+  border-radius: 24px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.07);
   border: 1px solid #ededed;
   transition: transform .12s ease, box-shadow .12s ease;
@@ -56,7 +56,7 @@
 /* Paragraph */
 .card p {
   color: #6B6F75;
-  font-family: 'Inter', sans-serif;
+  font-size: 20px;
 }
 
 /* Body */
@@ -74,3 +74,10 @@
   margin: 0;
 }
 
+
+p {
+    font-size: 30px;
+    line-height: 1.55;             
+    margin: 6px 0 14px 0;           /* espacement vertical propre */
+    font-weight: 400;               /* plus élégant qu'un regular */
+}

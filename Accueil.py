@@ -34,18 +34,20 @@ def media_div(image_path: str, fallback_gradient: str) -> str:
         return f"<div class='media' style=\"background-image: {fallback_gradient}\"></div>"
 
 
-
 # ------------------------------------------
 # 🏠 PAGE D’ACCUEIL – TITRE + INTRO
 # ------------------------------------------
 st.markdown("""
 <div style="text-align:center; margin-top:40px; margin-bottom:20px;">
-    <h1 style="font-size: 3rem; font-weight: 700;"> Open Data Culinary Road Trip</h1>
+    <h1 style="font-size: 3rem; font-weight: 700;">Open Data Culinary Road Trip</h1>
     <p style="font-size:1.2rem; color:#555; margin-top:10px;">
-       Explorez, découvrez et vivez une aventure gastronomique à travers l'Europe, guidée par les données Open Data.
+       Une application de data visualisation construite à partir de données ouvertes TripAdvisor
+       sur les restaurants en Europe.
     </p>
     <p style="font-size:1.1rem; color:#777;">
-       Cartes interactives, itinéraires sur mesure, analyse des tendances culinaires et suggestions personnalisées.
+    <br>
+       Explorez la géographie des restaurants, analysez les tendances culinaires,
+       planifiez un road trip gourmand et obtenez des recommandations adaptées à votre profil.
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -57,9 +59,16 @@ st.markdown("<br>", unsafe_allow_html=True)
 # ------------------------------------------
 st.markdown("""
 <div style="text-align:center; margin-bottom:20px;">
-    <h2 style="font-size:2rem; font-weight:600;"> Découvrir les fonctionnalités</h2>
+    <h2 style="font-size:2rem; font-weight:600;">Découvrir les fonctionnalités</h2>
     <p style="color:#666; font-size:1.1rem;">
-        Choisissez un module ci-dessous pour explorer les outils culinaires mis à votre disposition.
+    <br>
+        Naviguez entre les modules pour explorer les restaurants européens sous différents angles :
+        cartographie, itinéraires, statistiques et suggestions personnalisées.
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -69,7 +78,7 @@ st.markdown("""
 # ------------------------------------------
 st.markdown('<div class="grid">', unsafe_allow_html=True)
 
-# ---------------------- CARD 1 ----------------------
+# ---------------------- CARD 1 : CARTE ----------------------
 st.markdown(
     "<a href='/Maps' target='_self' class='card-link'>"
     "<div class='card clickable-card'>"
@@ -80,8 +89,8 @@ st.markdown(
     + """
       <div class="body">
         <h3>Carte interactive</h3>
-        <p>Visualisez des milliers de restaurants européens sur une carte dynamique.
-           Filtrez par cuisine, prix, note ou région pour planifier vos arrêts culinaires.</p>
+        <p>Explorez la répartition des restaurants en Europe sur une carte dynamique.
+           Filtrez par pays, ville, type de cuisine, niveau de prix et note moyenne.</p>
       </div>
     </div>
     </a>
@@ -89,19 +98,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------------- CARD 2 ----------------------
+# ---------------------- CARD 2 : ROADTRIP ----------------------
 st.markdown(
     "<a href='./Roadtrip2' target='_self' class='card-link'>"
     "<div class='card clickable-card'>"
     + media_div(
-        "images/resto3.jpg",
+        "images/resto.jpg",
         "radial-gradient(circle at 70% 20%, #ffd6c2 0%, #ffd6c2 18%, #f7e6e0 19%, #f7e6e0 100%)"
       )
     + """
       <div class="body">
         <h3>Road Trip Culinaire</h3>
-        <p>Créez un itinéraire gourmand sur plusieurs jours.
-           Sélectionnez des pays, des villes, des cuisines et obtenez un parcours optimisé.</p>
+        <p>Construisez un itinéraire gourmand sur plusieurs jours.
+           Choisissez vos pays, vos villes et vos cuisines préférées, puis laissez l’algorithme proposer
+           une sélection de restaurants pour chaque étape.</p>
       </div>
     </div>
     </a>
@@ -109,9 +119,30 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------------- CARD 3 ----------------------
+# ---------------------- CARD 3 : STATS ----------------------
 st.markdown(
     "<a href='/Stats' target='_self' class='card-link'>"
+    "<div class='card clickable-card'>"
+    + media_div(
+        "images/map2.jpg",
+        "radial-gradient(circle at 30% 40%, #ffe7a0 0%, #ffe7a0 14%, #f3f4f6 15%, #f3f4f6 100%)"
+      )
+    + """
+      <div class="body">
+        <h3>Statistiques & tendances</h3>
+        <p>Analysez les pays les plus représentés, les cuisines les mieux notées
+           et la distribution des avis. Un module pensé pour explorer les tendances
+           culinaires à l’échelle européenne.</p>
+      </div>
+    </div>
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+
+# ---------------------- CARD 4 : TOP 5 / PROFIL ----------------------
+st.markdown(
+    "<a href='/Top5' target='_self' class='card-link'>"
     "<div class='card clickable-card'>"
     + media_div(
         "images/resto2.jpg",
@@ -119,29 +150,9 @@ st.markdown(
       )
     + """
       <div class="body">
-        <h3>Profil Gourmet</h3>
-        <p>Indiquez vos goûts, votre budget et vos préférences.
-           Recevez des recommandations de restaurants adaptés à votre identité culinaire.</p>
-      </div>
-    </div>
-    </a>
-    """,
-    unsafe_allow_html=True
-)
-
-# ---------------------- CARD ' ----------------------
-st.markdown(
-    "<a href='/Top5' target='_self' class='card-link'>"
-    "<div class='card clickable-card'>"
-    + media_div(
-        "images/resto.jpg",
-        "radial-gradient(circle at 30% 40%, #ffe7a0 0%, #ffe7a0 14%, #f3f4f6 15%, #f3f4f6 100%)"
-      )
-    + """
-      <div class="body">
-        <h3>Profil Gourmet</h3>
-        <p>Indiquez vos goûts, votre budget et vos préférences.
-           Recevez des recommandations de restaurants adaptés à votre identité culinaire.</p>
+        <h3>Top 5 personnalisé</h3>
+        <p>Renseignez vos envies (ambiance, budget, type de cuisine).
+           Obtenez une sélection de restaurants recommandés qui correspondent à votre profil gourmand.</p>
       </div>
     </div>
     </a>

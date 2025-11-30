@@ -23,7 +23,7 @@ def load_data():
         "avg_rating", "total_reviews_count",
         "price_level", "cuisines"
     ]
-    df = pd.read_csv("tripadvisor_european_restaurants.csv", usecols=usecols)
+    df = pd.read_csv("tripadvisor_clean.csv", usecols=usecols)
 
     # Nettoyage
     df = df.dropna(subset=["avg_rating"])
@@ -44,7 +44,7 @@ df = load_data()
 # ==============================
 # 🔹 UI & FILTRES
 # ==============================
-st.title("⭐ Trending Restaurants")
+st.title("Trending Restaurants")
 
 st.write("Filtre les restaurants selon tes préférences, puis affiche un Top N.")
 
@@ -58,7 +58,7 @@ with col1:
 
 with col2:
     country = st.selectbox(
-        "🌍 Pays",
+        "Pays",
         ["France"] + sorted(df["country"].unique().tolist())
     )
 
@@ -77,7 +77,7 @@ cities_for_country = sorted(cities_for_country)
 
 with col3:
     city = st.selectbox(
-        "🏙️ Ville",
+        "Ville",
         ["Toutes villes"] + cities_for_country
     )
 
@@ -141,7 +141,7 @@ else:
     # ==============================
     # 🔹 MINI CARTE LEAFLET
     # ==============================
-    st.subheader("🗺️ Localisation sur la carte")
+    st.subheader("Localisation sur la carte")
 
     # On ne garde que ceux qui ont des coordonnées
     df_map = df_top.dropna(subset=["latitude", "longitude"])

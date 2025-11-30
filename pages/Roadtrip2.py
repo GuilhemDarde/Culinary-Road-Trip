@@ -17,7 +17,7 @@ def load_data():
         "cuisines",
         "avg_rating", "total_reviews_count"
     ]
-    df = pd.read_csv("tripadvisor_european_restaurants.csv", usecols=usecols)
+    df = pd.read_csv("tripadvisor_clean.csv", usecols=usecols)
 
     # Nettoyage des colonnes texte
     text_cols = ["country", "region", "province", "city", "address", "price_level", "price_range", "cuisines"]
@@ -56,14 +56,14 @@ df = load_data()
 # ===========================
 # 🔹 Titre principal
 # ===========================
-st.title("🍽️ Open Data Culinary Road Trip")
+st.title("Open Data Culinary Road Trip")
 st.markdown("*Discover trending restaurants, find the best spots nearby, and plan a foodie road trip across Europe!*")
-st.write("Bienvenue dans votre exploration culinaire en Europe à partir de données **Open Data** 🍷")
+st.write("Bienvenue dans votre exploration culinaire en Europe à partir de données **Open Data** ")
 
 # ===========================
 # PAGE : ROAD TRIP PLANNER
 # ===========================
-st.header("🚗 Multi-Day Foodie Road Trip Planner")
+st.header("Multi-Day Foodie Road Trip Planner")
 st.markdown("Plan your perfect culinary journey across Europe!")
 
 # --- stocker le résultat dans le state (simple) ---
@@ -258,7 +258,7 @@ else:
     with cc4:
         st.metric("Avg Rating", f"⭐ {results['avg_rating']:.2f}")
 
-    st.subheader("📅 Your Itinerary")
+    st.subheader("Your Itinerary")
 
     day_idx = 0
     for city, n_days in days_per_city.items():

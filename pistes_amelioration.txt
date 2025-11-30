@@ -13,3 +13,5 @@ amelioration du systeme de recherche sur les filtres
 Toutes states 
 
 Cloud community + biblio 
+
+fichier csv trop volumineux => mettre dans le cache 

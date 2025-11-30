@@ -50,26 +50,31 @@ df = load_data()
 # PAGE 1 : CARTE 3D
 # ===========================
 if page == "Carte 3D":
-    st.title("🏙️ Carte 3D — Visualisation des restaurants")
+    st.title("Carte 3D — Visualisation des restaurants")
 
     # -------- Filtres ----------
     col1, col2, col3 = st.columns(3)
 
     with col1:
         cuisine = st.selectbox(
-            "🍽 Type de cuisine",
+            "Type de cuisine",
             ["Toutes"] + sorted(df["cuisines_clean"].unique())
         )
-
+    
+    
     with col2:
-        country = st.selectbox(
-            "🌍 Pays",
-            ["Belgium"] + sorted(df["country"].unique())
-        )
+    # Option spéciale "Tous les pays"
+        country_options = ["Tous les pays"] + sorted(df["country"].unique())
 
+        selected_countries = st.multiselect(
+            "Pays",
+            options=country_options,
+            default=["Belgium"]  # par défaut : pas de filtre sur le pays
+        )
+        
     with col3:
         min_rating = st.slider(
-            "⭐ Note minimum", 0.0, 5.0, 4.0, step=0.1
+            "Note minimum", 0.0, 5.0, 4.0, step=0.1
         )
 
     # Appliquer filtres
@@ -78,13 +83,13 @@ if page == "Carte 3D":
     if cuisine != "Toutes":
         df_filtered = df_filtered[df_filtered["cuisines_clean"] == cuisine]
 
-    if country != "Tous":
-        df_filtered = df_filtered[df_filtered["country"] == country]
+    if selected_countries and "Tous les pays" not in selected_countries:
+        df_filtered = df_filtered[df_filtered["country"].isin(selected_countries)]
 
     df_filtered = df_filtered[df_filtered["avg_rating"] >= min_rating]
 
     # -------- Mode d'affichage ----------
-    st.subheader("🎛️ Mode d'affichage (hauteur des colonnes)")
+    st.subheader("Mode d'affichage (hauteur des colonnes)")
 
     mode = st.selectbox(
         "Afficher la hauteur en fonction de :",
@@ -153,7 +158,7 @@ if page == "Carte 3D":
         st.pydeck_chart(deck_3d)
 
     # -------- Analyses graphiques ----------
-    st.subheader("📊 Analyses complémentaires")
+    st.subheader("Analyses complémentaires")
 
     if not df_filtered.empty:
         df_country = (
@@ -189,7 +194,7 @@ if page == "Carte 3D":
 # PAGE 2 : TRENDING / STAT
 # ===========================
 elif page == "Statistiques":
-    st.header("📊 Statistiques")
+    st.header("Statistiques")
 
     df_cuisine = df.copy()
     
@@ -229,20 +234,47 @@ elif page == "Statistiques":
     # 2e GRAPHE : Top pays (cuisine + pays)
     # ==========================
     st.subheader("Top Countries by Restaurant Count (with both filters)")
+    
     if not filtered_df.empty:
-        country_counts = filtered_df["country"].value_counts().head(10)
-        fig = px.bar(
-            x=country_counts.values,
-            y=country_counts.index,
-            orientation="h",
-            labels={"x": "Number of Restaurants", "y": "Country"},
-            color=country_counts.values,
-            color_continuous_scale="Viridis",
+        country_stats = (
+            filtered_df.groupby("country")
+            .agg(
+                restaurant_count=("restaurant_name", "count"),
+                avg_rating_mean=("avg_rating", "mean"),
+            )
+            .sort_values("restaurant_count", ascending=False)
+            .head(10)
+            .reset_index()
         )
-        fig.update_layout(showlegend=False, height=400)
+
+        fig = px.bar(
+            country_stats,
+            x="restaurant_count",
+            y="country",
+            orientation="h",
+            labels={
+                "restaurant_count": "Number of Restaurants",
+                "country": "Country",
+            },
+            color="avg_rating_mean",             # Couleur = moyenne des notes
+            color_continuous_scale="Viridis",
+            hover_data={
+                "avg_rating_mean": ":.2f",       # ⭐ note moyenne
+                "restaurant_count": True,
+                "country": False,
+            },
+        )
+
+        fig.update_layout(
+            height=450,
+            coloraxis_colorbar_title="Avg Rating ⭐",
+        )
+
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("No data to display for country distribution with current filters.")
+
+    st.markdown("---")
 
 
 # ==========================
@@ -274,9 +306,14 @@ elif page == "Statistiques":
             title="",
             hole=0.4,
         )
+        fig2.update_traces(textinfo="percent",       
+                           textposition="inside",  # orientation lisible
+                           )
+        
         fig2.update_layout(height=400)
         st.plotly_chart(fig2, use_container_width=True)
     else:
         st.info("No data to display for cuisine distribution with current cuisine filter.")
 
     st.markdown("---")
+
