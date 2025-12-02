@@ -25,6 +25,10 @@ def load_data():
         filename="tripadvisor_clean.csv",
     )
 
+    # Chargement depuis Hugging Face
+    df = pd.read_csv(local_path, usecols=usecols)
+
+
     # Nettoyage des colonnes texte
     text_cols = ["country", "region", "province", "city", "address", "price_level", "price_range", "cuisines"]
     for col in text_cols:
