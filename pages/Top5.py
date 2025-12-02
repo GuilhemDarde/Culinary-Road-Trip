@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from huggingface_hub import hf_hub_download
 
 # Pour la carte Leaflet
 import folium
@@ -23,7 +24,14 @@ def load_data():
         "avg_rating", "total_reviews_count",
         "price_level", "cuisines"
     ]
-    df = pd.read_csv("tripadvisor_clean.csv", usecols=usecols)
+      # Téléchargement depuis Hugging Face Hub
+    local_path = hf_hub_download(
+        repo_id="Amoham16/dataset-resto-10k",
+        repo_type="dataset",
+        filename="tripadvisor_clean.csv",
+    )
+    
+    df = pd.read_csv(local_path, usecols=usecols)
 
     # Nettoyage
     df = df.dropna(subset=["avg_rating"])
