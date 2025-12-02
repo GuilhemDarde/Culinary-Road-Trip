@@ -9,8 +9,10 @@ Interactive Streamlit app powered by Tripadvisor and open data. Discover trendin
 
 🚗 **Road Trip Planner**: Plan your perfect multi-day culinary journey across Europe with customizable budget, cuisine preferences, and daily itinerary.
 
-## Stremlit Link
-Go to : https://culinary-road-trip.streamlit.app
+## Link
+app : https://guilhemdarde-culinary-road-trip-accueil-qbjf1j.streamlit.app
+HuggingFace dataset : https://huggingface.co/datasets/Amoham16/dataset-resto-10k
+
 ## Installation
 
 1. Clone this repository:
