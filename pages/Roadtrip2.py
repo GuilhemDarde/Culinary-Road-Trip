@@ -65,7 +65,6 @@ df = load_data()
 # ===========================
 st.title("Open Data Culinary Road Trip")
 st.markdown("*Discover trending restaurants, find the best spots nearby, and plan a foodie road trip across Europe!*")
-st.write("Bienvenue dans votre exploration culinaire en Europe à partir de données **Open Data** ")
 
 # ===========================
 # PAGE : ROAD TRIP PLANNER
